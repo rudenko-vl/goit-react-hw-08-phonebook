@@ -1,6 +1,7 @@
 import { Toolbar, Stack } from "@mui/material";
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import { Bar, Text, Link } from "./Header.styled";
+import { UserMenu } from "components";
 
 export const Header = () => {
     return <Bar>
@@ -17,6 +18,7 @@ export const Header = () => {
                 <Link to="/login">Log In</Link>
                 <Link to="/phonebook">Contacts</Link>
             </Stack>
+            <UserMenu/>
         </Toolbar>
     </Bar>
 };

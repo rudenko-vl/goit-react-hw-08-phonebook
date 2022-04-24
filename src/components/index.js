@@ -9,3 +9,4 @@ export * from "./Header/Header";
 export * from "./MyComponent/MyComponent";
 export * from "./LogInForm/LogInForm";
 export * from "./NewAccountForm/NewAccountForm";
+export * from "./UserMenu/UserMenu";

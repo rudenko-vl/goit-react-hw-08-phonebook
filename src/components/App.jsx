@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Container } from './App.styled';
 import { createAsyncView } from 'helpers/createAsyncView';
 
+
 const App = () => {
   const HomePage = createAsyncView('HomePage');
   const NewAccountPage = createAsyncView('NewAccountPage');
