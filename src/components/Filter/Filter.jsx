@@ -1,10 +1,19 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { ContactsList } from "components";
 
-export const Filter = ({ onChangeFilter, filter }) => {
-
+export const Filter = ({ contacts }) => {
+  const [filter, setFilter] = useState('');
+  const filteredContacts = contacts?.length > 0
+    ? contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.trim().toLowerCase()),
+      )
+    : [];
+  
   return (
+    <>
     <Box
       component="form"
       sx={{
@@ -16,16 +25,17 @@ export const Filter = ({ onChangeFilter, filter }) => {
         name='filter'
         placeholder="Contact's name"
         value={filter}
-        onChange={onChangeFilter}
+        onChange={ev => setFilter(ev.target.value)}
     >
       <TextField id="outlined-basic" label="Contact's name" variant="outlined" color="success" sx={{backgroundColor: "white", borderRadius: "5px"}} />
-    </Box>
+      </Box>
+      <ContactsList filteredContacts={filteredContacts}/>
+      </>
   );
   
 };
 
 Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  onChangeFilter: PropTypes.func.isRequired,
+ contacts: PropTypes.array,
 };
 

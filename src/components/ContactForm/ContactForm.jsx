@@ -16,8 +16,8 @@ export const ContactForm = ({onSubmit}) => {
     mode: "onBlur",
   });
 
-  const myHandleSubmit = ({name, phone}) => {
-    onSubmit({ name, phone });
+  const myHandleSubmit = ({name, number}) => {
+    onSubmit({ name, number });
     reset();
   };
 
@@ -43,7 +43,7 @@ export const ContactForm = ({onSubmit}) => {
       </div>
       <Label>
         Number:
-        <Input {...register("phone", {
+        <Input {...register("number", {
           required: "Поле обязательно к заполнению!",
           minLength: {
             value: 5,

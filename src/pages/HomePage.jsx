@@ -1,9 +1,10 @@
-import { Title, Footer, Header } from "components";
+import { Footer, Header, Main } from "components";
+
 const HomePage = () => {
     return (
         <>
             <Header />
-            <Title title="Зарегистрируйтесь или войдите в аккаунт" />
+            <Main />
             <Footer />
         </>
     )

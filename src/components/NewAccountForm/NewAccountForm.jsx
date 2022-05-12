@@ -1,8 +1,15 @@
 import { useForm } from "react-hook-form";
 import { Form, Label, Input } from "../ContactForm/ContactForm.styled";
 import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { regUser } from "redux/auth/auth-operations";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useState } from "react";
 
 export const NewAccountForm = () => {
+    const [visiblePass, setVisiblePass] = useState(false);
+    const dispatch = useDispatch();
     const {
         register,
         formState: {
@@ -13,15 +20,18 @@ export const NewAccountForm = () => {
     } = useForm({
         mode: "onBlur",
     });
-    
+
+    const toggleVisiblePass = (e) => {
+        setVisiblePass(!visiblePass)
+    };
+
     const myHandleSubmit = ({ name, email, password }) => {
-        // onSubmit({ name, email, password });
-        console.log({name, email, password})
+        dispatch(regUser({ name, email, password }))
         reset();
     };
     
     return (
-        <Form onSubmit={handleSubmit(myHandleSubmit)}>
+        <Form autoComplete="off" onSubmit={handleSubmit(myHandleSubmit)}>
             <Label>
                 Name:
                 <Input {...register("name", {
@@ -45,15 +55,16 @@ export const NewAccountForm = () => {
             <div style={{ height: 30 }}>
                 {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
             </div>
-            <Label>
+            <Label style={{position: "relative"}}>
                 Password:
-                <Input {...register("password", {
+                <Input type={visiblePass ? "text" : "password"} {...register("password", {
                     required: "Поле обязательно к заполнению!",
                     minLength: {
                         value: 5,
                         message: 'Пароль должен содержать минимум 5 символов!'
                     }
                 })} />
+                {visiblePass ? <VisibilityOffIcon color="primary" sx={{ position: "absolute", top: 30, right: 15 }} onClick={() => { toggleVisiblePass() }}/> : <VisibilityIcon onClick={() => { toggleVisiblePass() }} color="primary" sx={{ position: "absolute", top: 30, right: 15 }}/>}
             </Label>
             <div style={{ height: 40 }}>
                 {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}

@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { Toaster } from 'react-hot-toast';
 import { useNewContactsMutation, useGetContactsQuery } from "redux/contactsApi";
-import { ContactForm, ContactsList, Filter, Title, Loader, notifyError, notifySucces, Footer, Header } from "components";
+import { ContactForm, Filter, Title, Loader, notifyError, notifySucces, Footer, Header } from "components";
 
   const ContactsPage = () => {
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState('');
+  
   const [newContacts] = useNewContactsMutation();
   const { data } = useGetContactsQuery();
-  const handleFormSubmit = async ({ name, phone }) => {
+  const handleFormSubmit = async ({ name, number }) => {
     const arrayNames = data.map(item => item.name.toLowerCase());
     if (arrayNames.includes(name.toLowerCase())) {
       notifyError(`${name} is already in contacts.`);
       return;
     };
     setLoading(true);
-    await newContacts({ name, phone }).unwrap();
+    await newContacts({ name, number }).unwrap();
     notifySucces(`${name} added to phonebook`)
     setLoading(false);
   };
@@ -26,9 +26,8 @@ import { ContactForm, ContactsList, Filter, Title, Loader, notifyError, notifySu
       <Title title="Phonebook" />
       <ContactForm onSubmit={handleFormSubmit} />
       <Title title="Contacts" />
-      <Filter onChangeFilter={ev => setFilter(ev.target.value)} filter={filter} />
+      <Filter contacts={data} />
       {loading && <Loader />}
-          <ContactsList filter={filter} />
           <Footer/>
       </>
   );

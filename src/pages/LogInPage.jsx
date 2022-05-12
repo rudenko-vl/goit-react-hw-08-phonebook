@@ -1,5 +1,6 @@
 import { LogInForm, Footer, Header, Title } from "components";
 
+
 const LogInPage = () => {
     return (
         <>

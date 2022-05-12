@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const List = styled.ul`
   margin-top: 30px;
+  margin-bottom: 50px;
 `;
 
 export const Item = styled.li`

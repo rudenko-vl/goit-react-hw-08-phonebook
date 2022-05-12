@@ -1,18 +1,24 @@
 import { useState, Fragment } from 'react';
 import {Box, Drawer, List, ListItem, ListItemText, Avatar, Stack, Button } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import './UserMenu.css';
-import { deepPurple  } from '@mui/material/colors';
+import { deepPurple } from '@mui/material/colors';
+import { useSelector } from 'react-redux';
+import { getUserName, getUserEmail } from 'redux/auth/auth-selectors';
+import { logout } from 'redux/auth/auth-operations';
+import { useDispatch } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
+import { notifySucces } from 'components';
 
 export const UserMenu = () => {
     const [state, setState] = useState({
         right: false,
     });
-    const name = "Amigo";
-    const email = 'amigo@gmail.com';
-    
+    const dispatch = useDispatch();
+    const name = useSelector(getUserName);
+    const email = useSelector(getUserEmail);
+   
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -48,24 +54,13 @@ export const UserMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary={email} />
                 </ListItem>
-                <Button sx={{ ml: "80px", mt: "15px"}}>Log Out</Button>
+                <Button onClick={() => { dispatch(logout()); notifySucces('Bye!')}} sx={{ ml: "80px", mt: "15px"}}>Log Out</Button>
             </List>
-            {/* <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-                <Button sx={{ ml: "80px", mt: "15px"}}>Log Out</Button>
-            </List> */}
         </Box>
     );
     return (
         <Stack spacing={3} direction="row" sx={{ ml: "auto", alignItems: "center" }}>
-            <h2>Hello, Amigo!</h2>
+            <h2>Hello, {name}</h2>
                 <div>
       {['right'].map((anchor) => (
         <Fragment key={anchor}>
@@ -79,7 +74,8 @@ export const UserMenu = () => {
           </Drawer>
         </Fragment>
       ))}
-    </div>
+            </div>
+            <Toaster/>
         </Stack>
     );
 };

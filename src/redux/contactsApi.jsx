@@ -3,10 +3,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const contactsApi = createApi({
     reducerPath: 'contactsApi',
     tagTypes: ['contacts'],
-    baseQuery: fetchBaseQuery({baseUrl: 'https://625c358c50128c57020c2e41.mockapi.io/'}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://connections-api.herokuapp.com',
+        prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    }}),
     endpoints: (build) => ({
         getContacts: build.query({
-            query: (filter = '') => `/contacts?sortBy=name&${filter && `filter=${filter}`}`,
+            query: () => "/contacts",
             providesTags: (result) => result
               ? [
                   ...result.map(({ id }) => ({ type: 'contacts', id })),

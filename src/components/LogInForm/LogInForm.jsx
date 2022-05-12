@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Label, Input } from "../ContactForm/ContactForm.styled";
 import { Button } from "@mui/material";
+import { login } from "redux/auth/auth-operations";
+import { useDispatch } from "react-redux";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export const LogInForm = () => {
+    const [visiblePass, setVisiblePass] = useState(false);
+    const dispatch = useDispatch();
     const {
         register,
         formState: {
@@ -13,15 +20,17 @@ export const LogInForm = () => {
     } = useForm({
         mode: "onBlur",
     });
-    
-    const myHandleSubmit = (data) => {
-        // onSubmit({ email, password });
-        console.log(JSON.stringify(data))
-        reset();
+
+    const toggleVisiblePass = (e) => {
+        setVisiblePass(!visiblePass)
     };
     
+    const myHandleSubmit = ({ email, password }) => {
+        dispatch(login({ email, password }));
+        reset();
+    };
     return (
-        <Form onSubmit={handleSubmit(myHandleSubmit)}>
+        <Form autoComplete="off" onSubmit={handleSubmit(myHandleSubmit)}>
             <Label>
                 Email:
                 <Input {...register("email", {
@@ -32,15 +41,12 @@ export const LogInForm = () => {
             <div style={{ height: 40 }}>
                 {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
             </div>
-            <Label>
+            <Label style={{position: "relative"}}>
                 Password:
-                <Input {...register("password", {
+                <Input type={visiblePass ? "text" : "password"} {...register("password", {
                     required: "Поле обязательно к заполнению!",
-                    // minLength: {
-                    //     value: 5,
-                    //     message: 'Минимум 5 символов!'
-                    // }
                 })} />
+                {visiblePass ? <VisibilityOffIcon color="primary" sx={{ position: "absolute", top: 30, right: 15 }} onClick={() => { toggleVisiblePass() }}/> : <VisibilityIcon onClick={() => { toggleVisiblePass() }} color="primary" sx={{ position: "absolute", top: 30, right: 15 }}/>}
             </Label>
             <div style={{ height: 40 }}>
                 {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
