@@ -17,34 +17,7 @@ export const regUser = createAsyncThunk(
       setToken(data.token);
       return data;
     } catch (error) {
-      // showAsyncErrorNotification('Oops, something went wrong');
-      return rejectWithValue(error.message);
-    }
-  },
-);
-
-export const login = createAsyncThunk(
-  'auth/login',
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post('/users/login', credentials);
-      setToken(data.token);
-      return data;
-    } catch (error) {
-      // notifyError('Huinya kakaya to')
-      return rejectWithValue(error.message);
-    }
-  },
-);
-
-export const logout = createAsyncThunk(
-  'auth/logout',
-  async (_, { rejectWithValue }) => {
-    try {
-      await axios.post('/users/logout');
-      unsetToken();
-    } catch (error) {
-      // showAsyncErrorNotification('Oops, something went wrong');
+      alert('Registration error, please try again');
       return rejectWithValue(error.message);
     }
   },
@@ -67,4 +40,33 @@ export const refreshUser = createAsyncThunk(
     }
   },
 );
+
+export const login = createAsyncThunk(
+  'auth/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/login', credentials);
+      setToken(data.token);
+      return data;
+    } catch (error) {
+      alert('Authorization error, please try again');
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      await axios.post('/users/logout');
+      unsetToken();
+    } catch (error) {
+      alert('Error, please try again!');
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+
 

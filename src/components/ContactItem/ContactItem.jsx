@@ -19,7 +19,7 @@ export const ContactItem = ({contact}) => {
   const handleDeleteContact = async (id) => {
     setDeleting(true);
     await deleteContact(id).unwrap();
-    notifySucces("Contact removed from phonebook")
+    setTimeout(() => {notifySucces("Contact removed from phonebook")}, 1000)
     setDeleting(false);
   }
   

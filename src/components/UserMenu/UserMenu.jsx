@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux';
 import { getUserName, getUserEmail } from 'redux/auth/auth-selectors';
 import { logout } from 'redux/auth/auth-operations';
 import { useDispatch } from 'react-redux';
-import { Toaster } from 'react-hot-toast';
-import { notifySucces } from 'components';
 
 export const UserMenu = () => {
     const [state, setState] = useState({
@@ -54,7 +52,7 @@ export const UserMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary={email} />
                 </ListItem>
-                <Button onClick={() => { dispatch(logout()); notifySucces('Bye!')}} sx={{ ml: "80px", mt: "15px"}}>Log Out</Button>
+                <Button onClick={() => { dispatch(logout())}} sx={{ ml: "80px", mt: "15px"}}>Log Out</Button>
             </List>
         </Box>
     );
@@ -75,7 +73,6 @@ export const UserMenu = () => {
         </Fragment>
       ))}
             </div>
-            <Toaster/>
         </Stack>
     );
 };

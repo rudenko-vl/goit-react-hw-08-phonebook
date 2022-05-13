@@ -17,13 +17,13 @@ const authSlice = createSlice({
   extraReducers: {
     [authOperations.regUser.pending]: state => {
       state.error = null;
-      state.isAuthorizing = true;
+      state.isAuthorizing = false;
     },
     [authOperations.regUser.fulfilled]: (state, { payload }) => {
       state.user = payload.user;
       state.token = payload.token;
       state.isLoggedIn = true;
-      state.isAuthorizing = false;
+      state.isAuthorizing = true;
     },
     [authOperations.regUser.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -31,13 +31,13 @@ const authSlice = createSlice({
     },
     [authOperations.login.pending]: state => {
       state.error = null;
-      state.isAuthorizing = true;
+      state.isAuthorizing = false;
     },
     [authOperations.login.fulfilled]: (state, { payload }) => {
       state.user = payload.user;
       state.token = payload.token;
       state.isLoggedIn = true;
-      state.isAuthorizing = false;
+      state.isAuthorizing = true;
     },
     [authOperations.login.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -56,7 +56,7 @@ const authSlice = createSlice({
     },
     [authOperations.logout.rejected]: (state, { payload }) => {
       state.error = payload;
-      state.isAuthorizing = false;
+      state.isAuthorizing = true;
     },
     [authOperations.refreshUser.pending]: (state, action) => {
       state.isRefreshing = true;

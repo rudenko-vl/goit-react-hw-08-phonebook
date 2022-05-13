@@ -28,7 +28,7 @@ const App = () => {
         {
           isRefreshing ? null :
             <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<PublicRoute restricted><HomePage /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute restricted><NewAccountPage /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute restricted><LogInPage /></PublicRoute>} />
               <Route path="/phonebook" element={
