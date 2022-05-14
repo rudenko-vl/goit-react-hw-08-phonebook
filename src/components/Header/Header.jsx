@@ -16,13 +16,13 @@ export const Header = () => {
                 component="span">
                 Phonebook
             </Text>
+            {logged ? <UserMenu/> :
             <Stack spacing={3} direction="row" sx={{ml: "30px"}}>
                 <Link to="/">Home</Link>
                 <Link to="/register">New account</Link>
                 <Link to="/login">Log In</Link>
-                <Link to="/phonebook">Contacts</Link>
-            </Stack>
-            {logged && <UserMenu/>} 
+            </Stack>}
         </Toolbar>
+
     </Bar>
 };

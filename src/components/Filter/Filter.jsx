@@ -27,7 +27,7 @@ export const Filter = ({ contacts }) => {
         value={filter}
         onChange={ev => setFilter(ev.target.value)}
     >
-      <TextField id="outlined-basic" label="Contact's name" variant="outlined" color="success" sx={{backgroundColor: "white", borderRadius: "5px"}} />
+        <TextField id="filled-basic" label="Contact's name" variant="filled" color="success" sx={{ backgroundColor: "white", borderRadius: "5px" }}/>
       </Box>
       <ContactsList filteredContacts={filteredContacts}/>
       </>
@@ -38,4 +38,3 @@ export const Filter = ({ contacts }) => {
 Filter.propTypes = {
  contacts: PropTypes.array,
 };
-
