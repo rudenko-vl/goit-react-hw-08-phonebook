@@ -3,7 +3,7 @@ import { ContactItem, Title } from "components";
 import { Item } from "./ContactsList.styled";
 
 export const ContactsList = ({filteredContacts}) => {
- 
+
   return (
     <>
       {filteredContacts.length > 0 ? (

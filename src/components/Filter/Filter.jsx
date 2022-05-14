@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { ContactsList } from "components";
+import { inputСhange } from "redux/filter/action";
+import { getFilter } from "redux/filter/selectors";
+import { useSelector } from "react-redux";
 
-export const Filter = ({ contacts }) => {
-  const [filter, setFilter] = useState('');
+export const Filter = ({contacts}) => {
+  
+  const dispatch = useDispatch();
+  const value = useSelector(getFilter);
+  const changeFilter = ({ target: { value } }) => dispatch(inputСhange(value));
   const filteredContacts = contacts?.length > 0
     ? contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.trim().toLowerCase()),
+        contact.name.toLowerCase().includes(value.trim().toLowerCase()),
       )
     : [];
   
@@ -24,8 +30,8 @@ export const Filter = ({ contacts }) => {
       type="text"
         name='filter'
         placeholder="Contact's name"
-        value={filter}
-        onChange={ev => setFilter(ev.target.value)}
+        value={value}
+        onChange={changeFilter}
     >
         <TextField id="filled-basic" label="Contact's name" variant="filled" color="success" sx={{ backgroundColor: "white", borderRadius: "5px" }}/>
       </Box>
