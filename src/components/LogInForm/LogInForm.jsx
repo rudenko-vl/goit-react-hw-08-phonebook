@@ -6,6 +6,7 @@ import { login } from "redux/auth/auth-operations";
 import { useDispatch } from "react-redux";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import toast from "react-hot-toast";
 
 export const LogInForm = () => {
     const [visiblePass, setVisiblePass] = useState(false);
@@ -24,10 +25,11 @@ export const LogInForm = () => {
     const toggleVisiblePass = (e) => {
         setVisiblePass(!visiblePass)
     };
-    
+
     const myHandleSubmit = ({ email, password }) => {
         dispatch(login({ email, password }));
         reset();
+        setTimeout(()=>{toast.success(`Hello, ${email}!`)}, 500)
     };
     return (
         <Form autoComplete="off" onSubmit={handleSubmit(myHandleSubmit)}>

@@ -1,13 +1,15 @@
 import { useState, Fragment } from 'react';
-import {Box, Drawer, List, ListItem, ListItemText, Avatar, Stack, Button } from '@mui/material';
+import {Box, Drawer, List, ListItem, ListItemText, Avatar, Stack } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './UserMenu.css';
 import { deepPurple } from '@mui/material/colors';
 import { useSelector } from 'react-redux';
 import { getUserName, getUserEmail } from 'redux/auth/auth-selectors';
 import { logout } from 'redux/auth/auth-operations';
 import { useDispatch } from 'react-redux';
+import { DelBtn } from 'components/ContactList/ContactsList.styled';
 
 export const UserMenu = () => {
     const [state, setState] = useState({
@@ -16,6 +18,9 @@ export const UserMenu = () => {
     const dispatch = useDispatch();
     const name = useSelector(getUserName);
     const email = useSelector(getUserEmail);
+    const logOut = () => {
+        dispatch(logout());
+    }
    
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -52,7 +57,7 @@ export const UserMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary={email} />
                 </ListItem>
-                <Button onClick={() => { dispatch(logout())}} sx={{ ml: "80px", mt: "15px"}}>Log Out</Button>
+                <DelBtn onClick={logOut} startIcon={<LogoutIcon />} sx={{ ml: "80px", mt: "15px"}}>Log Out</DelBtn>
             </List>
         </Box>
     );
