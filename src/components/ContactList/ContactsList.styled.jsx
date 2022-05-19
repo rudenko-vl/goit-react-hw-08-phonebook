@@ -7,7 +7,7 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-  width: 500px;
+  min-width: 500px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,6 +20,8 @@ margin-top: 20px;
  color: red;
 `;
 export const Text = styled.p`
+padding-right: 15px;
+padding-left: 15px;
 font-size: 18px;
 font-weight: 600;
 `

@@ -5,22 +5,35 @@ import { deepOrange } from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ChangeCircleSharpIcon from '@mui/icons-material/ChangeCircleSharp';
 import { Text } from "../ContactList/ContactsList.styled";
-import { useDeleteContactMutation } from "redux/contactsApi";
+import { useDeleteContactMutation, useUpdateContactMutation } from "redux/contactsApi";
 import { Toaster } from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
-import { notifySucces } from "../Notify/Notify";
 import { Ul, UpdBtn, DelBtn } from "components/ContactList/ContactsList.styled";
 import { ModalBox } from "./ContactItem.styled";
+import { UpdateContact, notifySucces } from "components";
 
 
-export const ContactItem = ({contact}) => {
+export const ContactItem = ({ name, number, id }) => {
   const [deleteContact] = useDeleteContactMutation();
+  const [updateContact] = useUpdateContactMutation();
   const [deleting, setDeleting] = useState(false);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [openUpd, setOpenUpd] = useState(false);
   
+  const handleContactUpdate = (contact) => {
+   const data = { ...contact, id };
+    updateContact(data);
+  };
+
+   const showUpdModal = (e) => {
+        setOpenUpd(!openUpd)
+    };
+
+ 
   const handleDeleteContact = async (id) => {
     setDeleting(true);
     await deleteContact(id).unwrap();
@@ -32,18 +45,18 @@ export const ContactItem = ({contact}) => {
         <Stack direction="row" spacing={2}>
           <Avatar
             sx={{ bgcolor: deepOrange[400] }}
-            alt={contact.name}
+            alt={name}
             src="/broken-image.jpg"
           >
           </Avatar>
         </Stack>
         <Text>
-          {contact.name}: {contact.number}
+          {name}: {number}
         </Text>
     {deleting ? <Oval height="20" color="white" /> : <Ul>
       <li>
         <DelBtn
-          id={contact.id}
+          id={id}
           type="button"
           onClick={handleOpen}
           startIcon={<DeleteIcon />}
@@ -52,9 +65,9 @@ export const ContactItem = ({contact}) => {
       </li>
       <li>
         <UpdBtn
-          id={contact.id}
+          id={id}
           type="button"
-          // onClick={}
+          onClick={showUpdModal}
           startIcon={<ChangeCircleSharpIcon />}
         >Update
         </UpdBtn>
@@ -65,7 +78,7 @@ export const ContactItem = ({contact}) => {
         open={open}
         onClose={handleClose}>
               <ModalBox>
-                  <h2>Delete this contact?</h2>
+        <h2>Do you want to remove {name}?</h2>
           <Ul>
           <li><DelBtn type="button"
           onClick={handleClose}
@@ -73,9 +86,24 @@ export const ContactItem = ({contact}) => {
           <li><UpdBtn
             type="button"
             onClick={() => {
-            handleDeleteContact(contact.id)
+            handleDeleteContact(id)
           }}>Yes</UpdBtn></li>
           </Ul>
+        </ModalBox>
+    </Modal>
+    
+    <Modal
+      open={openUpd}
+      onClose={showUpdModal}
+    >
+      <ModalBox>
+        <h2>Update {name}?</h2>
+        <UpdateContact
+          name={name}
+          number={number}
+          handClose={showUpdModal}
+          onUpdate={handleContactUpdate}
+        />
         </ModalBox>
       </Modal>
   </>
@@ -83,6 +111,8 @@ export const ContactItem = ({contact}) => {
 };
 
 ContactItem.propTypes = {
- contact: PropTypes.object,
+  name: PropTypes.string,
+  number: PropTypes.string,
+  id: PropTypes.string,
 };
 

@@ -11,3 +11,4 @@ export * from "./NewAccountForm/NewAccountForm";
 export * from "./UserMenu/UserMenu";
 export * from "./Main/Main";
 export * from "./ContactItem/ContactItem";
+export * from "./UpdateContact/UpdateContact";
