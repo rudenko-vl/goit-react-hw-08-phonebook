@@ -44,12 +44,20 @@ export const Div = styled.div`
  display: flex;
  justify-content: space-between;
  align-items: center;
- width: 300px;
+ margin-top: 20px;
+ padding: 10px;
+ border: 2px solid white;
+ border-radius: 5px;
+ width: 400px;
+ > h2 {
+   margin:0;
+   padding: 0;
+ }
 `;
 
-// export const SortBtn = styled(Button)`
-// height: 40px;
-// :hover{
-//   background: #4caf50;
-// } 
-// `
+export const SortBtn = styled(Button)`
+height: 40px;
+:hover{
+  background: #4caf50;
+} 
+`

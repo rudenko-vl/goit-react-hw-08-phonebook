@@ -13,17 +13,16 @@ export const UpdateContact = ({ name, number, onUpdate, handClose }) => {
     const { name, value } = target;
     name === "name" ? setRename(value) : setReNumber(value);
     };
-
-    
+   
     const handlerSubmit = (e) => {
-        e.preventDefault();  
+    e.preventDefault();  
         
     const contact = {
       name: rename,
       number: renumber,
         };
         
-        if (contact.name === rename && contact.number === number) {
+        if (contact.name === name && contact.number === number) {
             notifyWarning('Уou made no changes!');
         } else {
             onUpdate(contact);

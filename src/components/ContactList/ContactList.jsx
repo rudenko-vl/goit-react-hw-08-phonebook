@@ -1,7 +1,7 @@
 import { List } from "./ContactsList.styled";
 import { ContactItem, Title } from "components";
 import { Item } from "./ContactsList.styled";
-// import { SortBtn, Div } from "./ContactsList.styled";
+import { SortBtn, Div } from "./ContactsList.styled";
 
 export const ContactsList = ({ filteredContacts }) => {
   
@@ -9,6 +9,13 @@ export const ContactsList = ({ filteredContacts }) => {
     
   return (
     <>
+      <Div>
+        <SortBtn
+          type="button"
+          // onClick={}
+        >Sort</SortBtn>
+      <h2>Total contacts - {sortedContacts.length}</h2>
+      </Div>
       {sortedContacts.length > 0 ? (
         <List>
           {sortedContacts.map(contact => <Item key={contact.id}>
