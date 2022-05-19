@@ -40,3 +40,16 @@ export const DelBtn = styled(Button)`
   background: #bf1650;
 } 
 `
+export const Div = styled.div`
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ width: 300px;
+`;
+
+// export const SortBtn = styled(Button)`
+// height: 40px;
+// :hover{
+//   background: #4caf50;
+// } 
+// `

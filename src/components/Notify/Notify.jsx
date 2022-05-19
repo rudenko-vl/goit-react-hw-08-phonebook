@@ -19,4 +19,16 @@ export const notifyError = (text) => toast.error(text, {
             color: "white",
             width: "500px",
             height: "40px",}
+});
+    
+export const notifyWarning = (text) => toast(text, {
+  icon: '❕',
+        duration: 2000,
+        style: {
+          fontWeight: 700,
+          fontSize: "18px",
+            backgroundColor: "#eeff41",
+            color: "#651fff",
+            width: "300px",
+            height: "40px",}
     });

@@ -1,16 +1,17 @@
 import { List } from "./ContactsList.styled";
 import { ContactItem, Title } from "components";
 import { Item } from "./ContactsList.styled";
+// import { SortBtn, Div } from "./ContactsList.styled";
 
-export const ContactsList = ({filteredContacts}) => {
-
+export const ContactsList = ({ filteredContacts }) => {
+  
+  const sortedContacts = filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
+    
   return (
     <>
-      <h2>Total contacts - {filteredContacts.length}</h2>
-      {filteredContacts.length > 0 ? (
+      {sortedContacts.length > 0 ? (
         <List>
-          {filteredContacts.map(contact => <Item key={contact.id}>
-            {/* <ContactItem contact={contact}/> */}
+          {sortedContacts.map(contact => <Item key={contact.id}>
             <ContactItem
               name={contact.name}
               number={contact.number}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Input } from "components/ContactItem/ContactItem.styled";
 import { Ul, DelBtn, UpdBtn } from "components/ContactList/ContactsList.styled";
-import toast from "react-hot-toast";
+import { notifySucces, notifyWarning } from "components";
 
 export const UpdateContact = ({ name, number, onUpdate, handClose }) => {
     const [rename, setRename] = useState(name);
@@ -21,22 +21,15 @@ export const UpdateContact = ({ name, number, onUpdate, handClose }) => {
     const contact = {
       name: rename,
       number: renumber,
-    };
-
-        onUpdate(contact);
-        toast.success(`${name} has been updated!`, {
-            duration: 2000,
-            style: {
-                fontWeight: 600,
-                fontSize: "18px",
-                backgroundColor: "#1A9525",
-                color: "white",
-                width: "700px",
-                height: "40px",
-            }
-        });
-        setTimeout(() => { handClose() }, 1000);
+        };
         
+        if (contact.name === rename && contact.number === number) {
+            notifyWarning('Уou made no changes!');
+        } else {
+            onUpdate(contact);
+            notifySucces(`${name} has been updated!`);
+            setTimeout(() => { handClose() }, 1000);
+        };         
   };
 
     return (
